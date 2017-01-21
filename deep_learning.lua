@@ -1,0 +1,25 @@
+require 'nn';
+
+net = nn.Sequential()
+net:add(nn.SpatialConvulution(1,6,5,5))
+net:add(nn.ReLU())
+net:add(nn.SpatialMaxPooling(2,2,2,2))
+net:add(nn.ReLU())
+net:add(nn.SpatialConvulution(6,16,5,5))
+net:add(nn.ReLU())
+net:add(nn.SpatialMaxPooling(2,2,2,2))
+net:add(nn.View(16*5*5))
+net:add(nn.Linear(16*5*5,120))
+net:add(nn.ReLU())
+net:add(nn.Linear(120,84))
+net:add(nn.Linear(84,10))
+net:add(nn.LogSoftMax())
+
+print ('Lenet5\n' .. net:__toString())
+
+input = torch.rand(1,32,,32)
+output = net:forward(input)
+print(output)
+neT:zeroGradParameters()
+gradInput = net:backward(input, torch.rand(10))
+print(#gradInput)
