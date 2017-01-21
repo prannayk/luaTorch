@@ -4,3 +4,5 @@ Learning Lua Torch
 * Lua learnt
 * Convulational Neural networks
 * Week long project
+## Completed Aim
+* Completed learning Lua
