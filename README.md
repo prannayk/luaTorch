@@ -6,3 +6,4 @@ Learning Lua Torch
 * Week long project
 ## Completed Aim
 * Completed learning Lua
+* Implemented 4 layer ConvNet for image recoginition
