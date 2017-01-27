@@ -23,19 +23,19 @@ criterion = nn.ClassNLLCriterion()
 cm = optim.ConfusionMatrix(10)
 function classEval(net, inputs, targets)
     cm:zero()
-    for i=1,inputs.size() do
+    for i=1,inputs:size(1) do
         local input,target = inputs[i], targets:narrow(1,i,1)
         local output = net:forward(input)
         cm:add(output,target)
     end
     cm:updateValids()
-    return cm.totalValids
+    return cm.totalValid
 end
 
 -- trainer : hand modelled, not plain SGD
 function trainEpoch(net, criterion, input, target)
     for i=1,input:size(1) do
-        if (i%10 == 0) then print(i) end
+        if (i%1000 == 0) then io.write("=") end
         local input_this, target_this = input[i], target:narrow(1,i,1)
         local output_this = net:forward(input_this)
         local loss = criterion:forward(output_this, target_this)
@@ -45,13 +45,13 @@ function trainEpoch(net, criterion, input, target)
         net:updateGradParameters(0.9)
         net:updateParameters(0.1)
     end
+    io.write("|\n")
 end
 
 
 bestAccuracy, bestEpoch = 0,0
 wait = 0
 for epoch=1,300 do
-    print("running")
     trainEpoch(net,criterion,trainInputs, trainTargets)
     local validAccuracy = classEval(net,validInputs, validTargets)
     if validAccuracy > bestAccuracy then
