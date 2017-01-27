@@ -20,14 +20,17 @@ net:add(nn.LogSoftMax())
 criterion = nn.ClassNLLCriterion()
 
 -- Validator
-cm = optim.ConfusionMatrix(10)
+cm = optim.ConfusionMatrix(100)
 function classEval(net, inputs, targets)
     cm:zero()
+    count = 0
     for i=1,inputs:size(1) do
+        count = count + 1
         local input,target = inputs[i], targets:narrow(1,i,1)
         local output = net:forward(input)
         cm:add(output,target)
     end
+    print(count)
     cm:updateValids()
     return cm.totalValid
 end
@@ -35,7 +38,7 @@ end
 -- trainer : hand modelled, not plain SGD
 function trainEpoch(net, criterion, input, target)
     for i=1,input:size(1) do
-        if (i%1000 == 0) then io.write("=") end
+        if (i%1000 == 0) then print(".") end
         local input_this, target_this = input[i], target:narrow(1,i,1)
         local output_this = net:forward(input_this)
         local loss = criterion:forward(output_this, target_this)
@@ -45,7 +48,6 @@ function trainEpoch(net, criterion, input, target)
         net:updateGradParameters(0.9)
         net:updateParameters(0.1)
     end
-    io.write("|\n")
 end
 
 
