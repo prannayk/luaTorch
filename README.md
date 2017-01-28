@@ -2,11 +2,12 @@
 Learning Lua Torch
 ## Final Aim
 * Character Level RNNs
-* Optimize MNIST using Deep networks
+* Optimize notMNIST using Deep networks
 * Weekend long project
 ## Completed Aim
 * Completed learning Lua
 * Implemented 4 layer ConvNet for image recoginition
+* Implemented Conv net for MNIST; buggy
 ## Requirements
 * dpnn
 * dp
