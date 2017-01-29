@@ -18,3 +18,6 @@ Learning Lua Torch
 ## Side aims
 * Setup GPU for Torch
 * Atleast 2 contributions a day or 15 a week on this repo except exam weeks
+* Run character RNN for 5 layers via GPU
+## Results
+* Shows good results for Character RNNs using 2 layer networks. 
