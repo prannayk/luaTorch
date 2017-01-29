@@ -7,7 +7,7 @@ LSTM = require 'crnn.model.LSTM'
 opt = {
     data_dir = '../datasets/crnn/tinyshakespeare',
     rnn_size = 128,
-    num_layers = 10,
+    num_layers = 2,
     model = 'lstm',
     learning_rate = 2e-3,
     learning_rate_decay = 0.97,
@@ -145,7 +145,7 @@ for i=1,iterations do
     train_losses[i] = train_loss
     if i%iterations_per_epoch == 0 and opt.learning_rate_decay < 1 then
         if epoch >= opt.learning_rate_decay_after then
-            optim_state.learningRate = optim_state.learning_rate * opt.learning_rate_decay
+            optim_state.learningRate = optim_state.learningRate * opt.learning_rate_decay
             print('Decayed rate')
         end
     end
